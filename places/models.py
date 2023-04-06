@@ -18,9 +18,10 @@ class Image(models.Model):
 
     post = models.ForeignKey(
         'Place',
+        related_name='images',
         on_delete=models.CASCADE,
         verbose_name='Картинка, к месту')
 
     def __str__(self):
 
-        return str(self.post)
+        return str(self.img)

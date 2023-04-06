@@ -7,7 +7,7 @@ class PlaceAdmin(admin.ModelAdmin):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ['post', 'img', ]
+    list_display = ['post', 'img']
     raw_id_fields = ['post', ]
     list_filter = ['post', ]
     pass
