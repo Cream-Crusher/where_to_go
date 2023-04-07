@@ -1,19 +1,31 @@
+import json
+
 from django.shortcuts import render
 from .models import Place
 
 
-def show_page(request):  # TODO возможно добавить оптимидзацию
-    places = Place.objects.all()
+def show_page(request):
+    places_queries = Place.objects.all().loading_db_queries()
+    places = []
 
-    for place in places:
-        requested_place = {
-            'title': place.title,
-            'description_short': place.description_short,
-            'description_long': place.description_long,
-            'low': place.low,
-            'lat': place.lat,
-            'img': [request.build_absolute_uri('/media/{}'.format(image)) for image in place.images.all()],
-            }
+    for place_queries in places_queries:
+        # place = {
+        #     'title': place_queries.title,
+        #     'imgs': [request.build_absolute_uri('/media/{}'.format(image)) for image in place_queries.images.all()],
+        #     'description_short': place_queries.description_short,
+        #     'description_long': place_queries.description_long,
+        #     'coordinates': {
+        #         "lng":  place_queries.low,
+        #         "lat": place_queries.lat
+        #     }
+        #     }
 
-        print(requested_place['img'])
-    return render(request, 'index.html', context={})
+        places.append({
+            "coordinates": [place_queries.low, place_queries.lat],
+            "title": place_queries.title,
+            "placeId": place_queries.title,
+        })
+
+    data = {"places": (places[0], places[1])}
+
+    return render(request, 'index.html', context=data)

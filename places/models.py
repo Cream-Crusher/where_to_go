@@ -1,12 +1,21 @@
 from django.db import models
 
 
+class PlaceQuerySet(models.QuerySet):
+
+    def loading_db_queries(self):
+
+        return self.prefetch_related('images')
+
+
 class Place(models.Model):
     title = models.CharField('Заголовок', max_length=200)
     description_short = models.TextField('Краткое описание', blank=True)
     description_long = models.TextField('Полное описание', blank=True)
     low = models.FloatField('Долгота')
     lat = models.FloatField('Широта')
+
+    objects = PlaceQuerySet.as_manager()
 
     def __str__(self):
 
