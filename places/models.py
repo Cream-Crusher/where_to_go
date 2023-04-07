@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class PlaceQuerySet(models.QuerySet):
@@ -34,3 +35,7 @@ class Image(models.Model):
     def __str__(self):
 
         return str(self.img)
+
+    def get_absolute_url(self):  # TODO надо?
+
+        return reverse('tag_title', args={'slug': self.slug})

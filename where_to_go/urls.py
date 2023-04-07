@@ -21,5 +21,6 @@ from places import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.show_page),
+    path('places/<slug:tag_title>', views.json_detail, name='image'),
     path('__debug__/', include('debug_toolbar.urls')),
 ]

@@ -1,6 +1,4 @@
-import json
-
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Place
 
 
@@ -29,3 +27,9 @@ def show_page(request):
     data = {"places": (places[0], places[1])}
 
     return render(request, 'index.html', context=data)
+
+
+def json_detail(request, tag_title):
+    place = get_object_or_404(Place, id=tag_title)
+    print(place)
+    return render(request, 'json_place.html', context={'title': place})
