@@ -42,4 +42,5 @@ class Image(models.Model):
         return reverse('tag_title', args={'slug': self.slug})
 
     def get_absolute_image_url(self):
+
         return self.img.url
