@@ -23,10 +23,11 @@ def show_page(request):
 
 def json_detail(request, tag_title):
     place = get_object_or_404(Place, id=tag_title)
+    # TODO Удалить тест
+    #absolute_url = settings.MEDIA_URL + place.images.all()
+    print(place.images.first().get_absolute_image_url())
 
-    # absolute_url = settings.MEDIA_URL + str(place.images.all()[0])
-    # print(absolute_url)
-
+    #
     return JsonResponse({
         'title': place.title,
         'imgs': [request.build_absolute_uri('/media/{}'.format(image)) for image in place.images.all()],
