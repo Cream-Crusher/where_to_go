@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Place
 from django.http import JsonResponse
-from django.conf import settings
 
 
 def show_page(request):
