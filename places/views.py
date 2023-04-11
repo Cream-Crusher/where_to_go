@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Place
+from django.http import JsonResponse
+from django.conf import settings
 
 
 def show_page(request):
@@ -7,16 +9,6 @@ def show_page(request):
     places = []
 
     for place_queries in places_queries:
-        # place = {
-        #     'title': place_queries.title,
-        #     'imgs': [request.build_absolute_uri('/media/{}'.format(image)) for image in place_queries.images.all()],
-        #     'description_short': place_queries.description_short,
-        #     'description_long': place_queries.description_long,
-        #     'coordinates': {
-        #         "lng":  place_queries.low,
-        #         "lat": place_queries.lat
-        #     }
-        #     }
 
         places.append({
             "coordinates": [place_queries.low, place_queries.lat],
@@ -31,5 +23,17 @@ def show_page(request):
 
 def json_detail(request, tag_title):
     place = get_object_or_404(Place, id=tag_title)
-    print(place)
-    return render(request, 'json_place.html', context={'title': place})
+
+    # absolute_url = settings.MEDIA_URL + str(place.images.all()[0])
+    # print(absolute_url)
+
+    return JsonResponse({
+        'title': place.title,
+        'imgs': [request.build_absolute_uri('/media/{}'.format(image)) for image in place.images.all()],
+        'description_short': place.description_short,
+        'description_long': place.description_long,
+        'coordinates': {
+            "lng":  place.low,
+            "lat": place.lat
+        }
+        }, json_dumps_params={'indent': 4, 'ensure_ascii': False})
