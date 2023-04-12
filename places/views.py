@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Place
 from django.http import JsonResponse
+from django.urls import reverse
 
 
 def show_page(request):
@@ -16,13 +17,15 @@ def show_page(request):
         })
 
     data = {"places": (places[0], places[1])}
+    reverse('admin:app_list', kwargs={'app_label': 'auth'})
 
     return render(request, 'index.html', context=data)
 
 
-def json_detail(request, tag_title):
+def place_detail(request, tag_title):
     place = get_object_or_404(Place, id=tag_title)
     absolute_url = [url.get_absolute_image_url() for url in place.images.all()]
+    reverse('admin:app_list', kwargs={'app_label': 'auth'})
 
     return JsonResponse({
         'title': place.title,

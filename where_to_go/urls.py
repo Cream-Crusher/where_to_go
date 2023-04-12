@@ -18,9 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from places import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.show_page),
-    path('places/<slug:tag_title>', views.json_detail, name='image'),
+    path('places/<slug:tag_title>', views.place_detail, name='place_detail'),
     path('__debug__/', include('debug_toolbar.urls')),
 ]
