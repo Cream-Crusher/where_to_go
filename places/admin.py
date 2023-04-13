@@ -1,5 +1,6 @@
 from django.contrib import admin
 from places.models import Place, Image
+from django.utils.safestring import mark_safe
 
 
 class ImageInline(admin.TabularInline):
@@ -9,12 +10,18 @@ class ImageInline(admin.TabularInline):
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
     inlines = [ImageInline, ]
-    pass
 
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ['post', 'img']
+    readonly_fields = ['image', ]
+    list_display = ['post', 'img', ]
     raw_id_fields = ['post', ]
     list_filter = ['post', ]
-    pass
+
+    def image(self, Image):
+        return mark_safe('<img src="{url}" width="{width}" height={height} />'.format(
+            url=Image.img.url,
+            width=100,
+            height=100,
+            ))
