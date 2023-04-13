@@ -17,7 +17,7 @@ def show_page(request):
         })
 
     data = {"places": (places[0], places[1])}
-    reverse('admin:app_list', kwargs={'app_label': 'auth'})
+    #reverse("place_detail", args=[1])
 
     return render(request, 'index.html', context=data)
 
@@ -25,8 +25,7 @@ def show_page(request):
 def place_detail(request, tag_title):
     place = get_object_or_404(Place, id=tag_title)
     absolute_url = [url.get_absolute_image_url() for url in place.images.all()]
-    reverse('admin:app_list', kwargs={'app_label': 'auth'})
-
+    #reverse("home_page")
     return JsonResponse({
         'title': place.title,
         'imgs': absolute_url,
