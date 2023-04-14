@@ -18,10 +18,11 @@ class ImageAdmin(admin.ModelAdmin):
     list_display = ['post', 'img', ]
     raw_id_fields = ['post', ]
     list_filter = ['post', ]
+    fields = ['img', 'post', 'image', ]
 
     def image(self, Image):
         return mark_safe('<img src="{url}" width="{width}" height={height} />'.format(
             url=Image.img.url,
-            width=100,
-            height=100,
+            width=150,
+            height=150,
             ))

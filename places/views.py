@@ -9,14 +9,14 @@ def show_page(request):
     places = []
 
     for place_queries in places_queries:
-
         places.append({
-            "coordinates": [place_queries.low, place_queries.lat],
-            "title": place_queries.title,
-            "placeId": place_queries.title,
+            'coordinates': [place_queries.low, place_queries.lat],
+            'title': place_queries.title,
+            'placeId': place_queries.title,
+            "detailsUrl": reverse('place_detail', args=[place_queries.id, ]),
         })
 
-    data = {"places": (places[0], places[1])}
+    data = {'places': (places[0], places[1])}
 
     return render(request, 'index.html', context=data)
 
@@ -31,7 +31,7 @@ def place_detail(request, tag_title):
         'description_short': place.description_short,
         'description_long': place.description_long,
         'coordinates': {
-            "lng":  place.low,
-            "lat": place.lat
+            'lng':  place.low,
+            'lat': place.lat
         }
         }, json_dumps_params={'indent': 4, 'ensure_ascii': False})

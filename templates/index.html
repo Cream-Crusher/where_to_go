@@ -38,7 +38,6 @@
       width: 100px;
     }
   </style>
-
   <script id="places-geojson" type="json">
     {
       "type": "FeatureCollection",
@@ -52,7 +51,7 @@
           "properties": {
             "title": "{{ places.0.title }}",
             "placeId": "{{ places.0.title }}",
-            "detailsUrl": "{% static "/places/moscow_legends.json" %}"
+            "detailsUrl": "{{ places.0.detailsUrl }}"
           }
         },
         {
@@ -64,7 +63,7 @@
           "properties": {
             "title": "{{ places.1.title }}",
             "placeId": "{{ places.1.title }}",
-            "detailsUrl": "{% static "/places/roofs24.json" %}"
+            "detailsUrl": "{{ places.1.detailsUrl }}"
           }
 
         }
