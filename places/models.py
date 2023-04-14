@@ -32,6 +32,9 @@ class Image(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Картинка, к месту')
 
+    class Meta:
+        ordering = ['img']
+
     def __str__(self):
 
         return str(self.img)
