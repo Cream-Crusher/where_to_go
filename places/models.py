@@ -32,8 +32,14 @@ class Image(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Картинка, к месту')
 
+    my_order = models.IntegerField(  # TODO Поменять нзвание? шаг 15
+        default=0,
+        blank=False,
+        null=False,
+    )
+
     class Meta:
-        ordering = ['img']
+        ordering = ['my_order']
 
     def __str__(self):
 

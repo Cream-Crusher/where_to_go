@@ -1,36 +1,30 @@
 from django.contrib import admin
-from django.utils.safestring import mark_safe
-from adminsortable2.admin import SortableAdminMixin, SortableStackedInline
+from django.utils.html import format_html
+from adminsortable2.admin import SortableAdminMixin, SortableStackedInline, SortableAdminBase
 
 from places.models import Place, Image
 
 
-class ImageInline(admin.TabularInline):
-    model = Image
-
-
 class ImageStackedInline(SortableStackedInline):  # TODO чТО ТО С ЭТИМ СДЕЛТАЬ
     model = Image
-    raw_id_fields = ("post",)
+    raw_id_fields = ['post', ]
 
 
 @admin.register(Place)
-class PlaceAdmin(admin.ModelAdmin):
-    inlines = [ImageInline, ]
+class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
+    inlines = [ImageStackedInline]
 
 
 @admin.register(Image)
 class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
-    readonly_fields = ['image', ]
+    readonly_fields = ['preview', ]
     list_display = ['post', 'img', ]
     raw_id_fields = ['post', ]
-    list_filter = ['post', ]
-    fields = ['img', 'post', 'image', ]
-    #inlines = [ImageStackedInline, ]
+    fields = ['img', 'post', 'preview', ]
 
-    def image(self, Image):
-        return mark_safe('<img src="{url}" width="{width}" height={height} />'.format(
+    def preview(self, Image):
+        return format_html('<img src="{url}" width="{width}" height={height} />'.format(
             url=Image.img.url,
-            width=150,
-            height=150,
+            width=200,
+            height=200,
             ))
