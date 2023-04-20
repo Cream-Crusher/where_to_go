@@ -3,21 +3,12 @@ from django.urls import reverse
 from tinymce.models import HTMLField
 
 
-class PlaceQuerySet(models.QuerySet):
-
-    def loading_db_queries(self):
-
-        return self.prefetch_related('images')
-
-
 class Place(models.Model):
     title = models.CharField('Заголовок', max_length=200)
     description_short = models.TextField('Краткое описание', blank=True)
     description_long = HTMLField('Полное описание', blank=True)
     low = models.FloatField('Долгота')
     lat = models.FloatField('Широта')
-
-    objects = PlaceQuerySet.as_manager()
 
     def __str__(self):
 
@@ -33,7 +24,7 @@ class Image(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Картинка, к месту')
 
-    my_order = models.IntegerField(  # TODO Поменять нзвание? шаг 15
+    my_order = models.IntegerField(
         default=0,
         blank=False,
         null=False,

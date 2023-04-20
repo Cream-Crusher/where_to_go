@@ -5,15 +5,15 @@ from django.urls import reverse
 
 
 def show_page(request):
-    places_queries = Place.objects.all().loading_db_queries()
+    places = Place.objects.all()
     places = []
 
-    for place_queries in places_queries:
+    for place in places:
         places.append({
-            'coordinates': [place_queries.low, place_queries.lat],
-            'title': place_queries.title,
-            'placeId': place_queries.title,
-            "detailsUrl": reverse('place_detail', args=[place_queries.id, ]),
+            'coordinates': [place.low, place.lat],
+            'title': place.title,
+            'placeId': place.title,
+            "detailsUrl": reverse('place_detail', args=[place.id, ]),
         })
 
     data = {'places': (places[0], places[1])}
