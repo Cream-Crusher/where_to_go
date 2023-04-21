@@ -25,6 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.show_page, name='home_page'),
     path('places/<int:tag_title>', views.place_detail, name='place_detail'),
-    path('__debug__/', include('debug_toolbar.urls')),
     path('tinymce/', include('tinymce.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

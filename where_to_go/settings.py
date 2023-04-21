@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 
 from pathlib import Path
+from environs import Env
+
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,13 +26,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@kn1002_634ikkiy*ezn6zsh0d&j)cs2e64x7(6*4*99oeq=3='
+SECRET_KEY = env.str('SECRET_KEY')
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+CSRF_COOKIE_SECURE = env.bool('CSRF_COOKIE_SECURE')
+
+SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT')
+
+SESSION_COOKIE_SECURE = env.bool('SESSION_COOKIE_SECURE')
+
+SECURE_HSTS_SECONDS = env.int('SECURE_HSTS_SECONDS')
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool('SECURE_HSTS_INCLUDE_SUBDOMAINS')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+DEBUG = env.bool('DEBUG')
 
 # Application definition
 
@@ -41,7 +54,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'places.apps.PlacesConfig',
     'adminsortable2',
-    'debug_toolbar',
     'tinymce'
 ]
 
@@ -53,14 +65,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'where_to_go.urls'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
 ]
 
 TEMPLATES = [

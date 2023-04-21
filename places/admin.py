@@ -5,7 +5,7 @@ from adminsortable2.admin import SortableAdminMixin, SortableStackedInline, Sort
 from places.models import Place, Image
 
 
-class ImageStackedInline(SortableStackedInline):  # TODO чТО ТО С ЭТИМ СДЕЛТАЬ
+class ImageStackedInline(SortableStackedInline):
     model = Image
     raw_id_fields = ['post', ]
 
