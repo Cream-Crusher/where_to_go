@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     'places.apps.PlacesConfig',
     'adminsortable2',
     'tinymce',
-    #'load_place'  # TODO Надо?
 ]
 
 MIDDLEWARE = [
