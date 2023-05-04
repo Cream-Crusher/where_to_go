@@ -12,7 +12,8 @@ class ImageStackedInline(SortableStackedInline):
 
 @admin.register(Place)
 class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
-    inlines = [ImageStackedInline]
+    pass
+    #inlines = [ImageStackedInline]  TODO сделать
 
 
 @admin.register(Image)

@@ -38,10 +38,40 @@
       width: 100px;
     }
   </style>
-  <script id="places-geojson" type="json">
+
+  <script id="places-geojson" type="application/json">
     {
       "type": "FeatureCollection",
-      "features": [
+      "features": 
+      [
+      {% for place in places %}
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": {{ place.coordinates }}
+          },
+          "properties": {
+            "title": "{{ place.title }}",
+            "placeId": "{{ place.title }}",
+            "detailsUrl": "{{ place.detailsUrl }}"
+          }
+        },
+        {% endfor %}
+        {
+
+        }
+      ]
+    }
+
+
+  </script>
+<!-- 
+    {
+      "type": "FeatureCollection",
+      "features": 
+      
+      [
         {
           "type": "Feature",
           "geometry": {
@@ -65,12 +95,12 @@
             "placeId": "{{ places.1.title }}",
             "detailsUrl": "{{ places.1.detailsUrl }}"
           }
-
+  
         }
       ]
     }
+   -->
 
-  </script>
 
   <script id="app-template" type="text/template">
     <div v-bind:class="{'sidebar-content': 1, 'bg-white': selectedPlace, 'bg-secondary': !selectedPlace}">
