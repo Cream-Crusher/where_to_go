@@ -66,42 +66,6 @@
 
 
   </script>
-<!-- 
-    {
-      "type": "FeatureCollection",
-      "features": 
-      
-      [
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": {{ places.0.coordinates }}
-          },
-          "properties": {
-            "title": "{{ places.0.title }}",
-            "placeId": "{{ places.0.title }}",
-            "detailsUrl": "{{ places.0.detailsUrl }}"
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": {{ places.1.coordinates }}
-          },
-          "properties": {
-            "title": "{{ places.1.title }}",
-            "placeId": "{{ places.1.title }}",
-            "detailsUrl": "{{ places.1.detailsUrl }}"
-          }
-  
-        }
-      ]
-    }
-   -->
-
-
   <script id="app-template" type="text/template">
     <div v-bind:class="{'sidebar-content': 1, 'bg-white': selectedPlace, 'bg-secondary': !selectedPlace}">
       <div v-if="promptVisible" class="d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
