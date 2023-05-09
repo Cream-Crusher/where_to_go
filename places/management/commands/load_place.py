@@ -12,8 +12,9 @@ class Command(BaseCommand):
         parser.add_argument('poll_ids', nargs='+', type=str)
 
     def handle(self, *args, **options):
-        requests_place = requests.get(options['poll_ids'][0])
-        place = requests_place.json()
+        r_place = requests.get(options['poll_ids'][0])
+
+        place = r_place.json()
         place_coordinates = place['coordinates']
 
         place_mame, created = Place.objects.get_or_create(
@@ -24,11 +25,15 @@ class Command(BaseCommand):
             lat=place_coordinates['lat'],
         )
 
-        image, created = Image.objects.get_or_create(
-            post=place_mame
-        )
-        img = place['imgs'][0]
-        img_link = ContentFile(img)
-        img_name = img.split('/')[-1]
+        if created:
+            for image in place['imgs']:
+                image, created = Image.objects.get_or_create(
+                    post=place_mame,
+                    img=image
+                )
+                img_link = ContentFile(requests.get(image).content)
+                img_name = str(image).split('/')[-1]
 
-        image.img.save(img_name, img_link, save=True)
+                image.img.save(img_name, img_link, save=True)
+        else:
+            pass
