@@ -35,7 +35,7 @@ class Image(models.Model):
 
     def __str__(self):
 
-        return str(self.img)
+        return str(self.post)
 
     def get_absolute_url(self):
 

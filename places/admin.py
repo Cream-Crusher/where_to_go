@@ -7,7 +7,15 @@ from places.models import Place, Image
 
 class ImageStackedInline(SortableStackedInline):
     model = Image
-    #raw_id_fields = ['post', ]
+    raw_id_fields = ['post', ]
+    readonly_fields = ['preview', ]
+
+    def preview(self, Image):
+        return format_html('<img src="{url}" width="{width}" height={height} />'.format(
+            url=Image.img.url,
+            width=200,
+            height=200,
+            ))
 
 
 @admin.register(Place)
