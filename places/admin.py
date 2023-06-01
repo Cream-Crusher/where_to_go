@@ -7,14 +7,13 @@ from places.models import Place, Image
 
 class ImageStackedInline(SortableStackedInline):
     model = Image
-    raw_id_fields = ['post', ]
+    #raw_id_fields = ['post', ]
 
 
 @admin.register(Place)
 class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
     search_fields = ['title', ]
-    pass
-    #inlines = [ImageStackedInline]  TODO сделать
+    inlines = [ImageStackedInline]
 
 
 @admin.register(Image)
