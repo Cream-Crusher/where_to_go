@@ -23,11 +23,11 @@ def show_page(request):
 
 def place_detail(request, tag_title):
     place = get_object_or_404(Place, id=tag_title)
-    absolute_url = [url.get_absolute_image_url() for url in place.images.all()]
+    absolute_urls = [url.get_absolute_image_url() for url in place.images.all()]
 
     return JsonResponse({
         'title': place.title,
-        'imgs': absolute_url,
+        'imgs': absolute_urls,
         'description_short': place.description_short,
         'description_long': place.description_long,
         'coordinates': {
