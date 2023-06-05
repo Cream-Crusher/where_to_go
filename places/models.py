@@ -16,7 +16,7 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    img = models.ImageField('Картинка', upload_to='media', blank=True, unique=True)
+    img = models.ImageField('Картинка', upload_to='media', unique=True)
 
     post = models.ForeignKey(
         'Place',
@@ -26,8 +26,6 @@ class Image(models.Model):
 
     custom_order = models.IntegerField(
         default=0,
-        blank=False,
-        null=False,
     )
 
     class Meta:
