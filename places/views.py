@@ -16,9 +16,9 @@ def show_page(request):
             'detailsUrl': reverse('place_detail', args=[place.id, ]),
         })
 
-    data = {'places': ([(place) for place in places_processed])}
+    dataset = {'places': ([(place) for place in places_processed])}
 
-    return render(request, 'index.html', context=data)
+    return render(request, 'index.html', context=dataset)
 
 
 def place_detail(request, tag_title):
