@@ -12,7 +12,7 @@ def show_page(request):
         places_processed.append({
             'coordinates': [place.low, place.lat],
             'title': place.title,
-            'placeId': place.title,
+            'placeId': place.id,
             'detailsUrl': reverse('place_detail', args=[place.id, ]),
         })
 
