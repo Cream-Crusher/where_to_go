@@ -12,7 +12,7 @@ class Place(models.Model):
 
     def __str__(self):
 
-        return self.title
+        return '%s Id места: %s' % (self.title, self.id)
 
 
 class Image(models.Model):
@@ -32,7 +32,7 @@ class Image(models.Model):
         ordering = ['custom_order']
 
     def __str__(self):
-        return str(self.post)
+        return '%s. Id картинки: %s' % (self.post, self.id)
 
     def get_absolute_url(self):
         return reverse('tag_title', args={'slug': self.slug})
