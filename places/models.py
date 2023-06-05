@@ -24,14 +24,14 @@ class Image(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Картинка, к месту')
 
-    my_order = models.IntegerField(
+    custom_order = models.IntegerField(
         default=0,
         blank=False,
         null=False,
     )
 
     class Meta:
-        ordering = ['my_order']
+        ordering = ['custom_order']
 
     def __str__(self):
 
