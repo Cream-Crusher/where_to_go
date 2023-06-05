@@ -5,16 +5,10 @@
 ### Демонстрация сайта
 ![Иллюстрация к проекту](static/img/photo_demo.jpg)
 
-# Управление демкой сайта
+# Онлайн демка
 
 Просмотреть демку сайта:
 [Демка сайта](https://testewr23we1243.pythonanywhere.com/).
-
-Возможность добавить свою локацию:
-[Админ панель](https://testewr23we1243.pythonanywhere.com/).
-
-- Логин-guest
-- Пароль-123йцу
 
 ## Запуск
 
@@ -55,7 +49,7 @@ python3 manage.py load_place [Ссылка на исходный код файл
 ```
 pyton3 manage.py createsuperuser
 ```
-- Зайти в админку
+- Зайти в админку[Зайти в админку](https://testewr23we1243.pythonanywhere.com/admin).
 
 Важно: сайт должен быть запущен
 
