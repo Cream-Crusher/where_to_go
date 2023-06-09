@@ -33,6 +33,3 @@ class Image(models.Model):
 
     def __str__(self):
         return '%s. Id картинки: %s' % (self.post, self.id)
-
-    def get_absolute_url(self):
-        return reverse('tag_title', args={'slug': self.slug})

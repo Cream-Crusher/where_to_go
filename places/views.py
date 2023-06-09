@@ -21,13 +21,13 @@ def show_page(request):
     return render(request, 'index.html', context=dataset)
 
 
-def place_detail(request, tag_title):  # TODO Переменовать, ээто не асбалютный юрл.
+def place_detail(request, tag_title):
     place = get_object_or_404(Place, id=tag_title)
-    absolute_urls = [url.img.url for url in place.images.all()]
+    urls = [url.img.url for url in place.images.all()]
 
     return JsonResponse({
         'title': place.title,
-        'imgs': absolute_urls,
+        'imgs': urls,
         'description_short': place.description_short,
         'description_long': place.description_long,
         'coordinates': {
