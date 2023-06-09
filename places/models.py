@@ -32,4 +32,4 @@ class Image(models.Model):
         ordering = ['custom_order']
 
     def __str__(self):
-        return '%s. Id картинки: %s' % (self.post, self.id)
+        return str(self.img)
