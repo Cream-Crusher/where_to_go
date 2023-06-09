@@ -21,9 +21,9 @@ def show_page(request):
     return render(request, 'index.html', context=dataset)
 
 
-def place_detail(request, tag_title):
+def place_detail(request, tag_title):  # TODO Переменовать, ээто не асбалютный юрл.
     place = get_object_or_404(Place, id=tag_title)
-    absolute_urls = [url.get_absolute_image_url() for url in place.images.all()]
+    absolute_urls = [url.img.url for url in place.images.all()]
 
     return JsonResponse({
         'title': place.title,
