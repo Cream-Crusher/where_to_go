@@ -6,17 +6,17 @@ from django.urls import reverse
 
 def show_page(request):
     places = Place.objects.all()
-    places_processed = []
+    processed_places = []
 
     for place in places:
-        places_processed.append({
+        processed_places.append({
             'coordinates': [place.low, place.lat],
             'title': place.title,
             'placeId': place.id,
             'detailsUrl': reverse('place_detail', args=[place.id, ]),
         })
 
-    dataset = {'places': ([(place) for place in places_processed])}
+    dataset = {'places': ([(place) for place in processed_places])}
 
     return render(request, 'index.html', context=dataset)
 
