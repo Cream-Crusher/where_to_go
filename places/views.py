@@ -25,13 +25,15 @@ def place_detail(request, tag_title):
     place = get_object_or_404(Place, id=tag_title)
     urls = [url.img.url for url in place.images.all()]
 
-    return JsonResponse({
-        'title': place.title,
-        'imgs': urls,
-        'description_short': place.description_short,
-        'description_long': place.description_long,
-        'coordinates': {
-            'lng':  place.low,
-            'lat': place.lat
-        }
-        }, json_dumps_params={'indent': 4, 'ensure_ascii': False})
+    return JsonResponse(
+        {
+            'title': place.title,
+            'imgs': urls,
+            'description_short': place.description_short,
+            'description_long': place.description_long,
+            'coordinates': {
+                'lng':  place.low,
+                'lat': place.lat
+            }
+        }, json_dumps_params={'indent': 4, 'ensure_ascii': False}
+    )
