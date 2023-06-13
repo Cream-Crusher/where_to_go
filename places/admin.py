@@ -10,9 +10,9 @@ class ImageStackedInline(SortableStackedInline):
     raw_id_fields = ['post', ]
     readonly_fields = ['preview', ]
 
-    def preview(self, Image):
+    def preview(self, image):
         return format_html('<img src="{url}" width="{width}" height={height} />'.format(
-            url=Image.img.url,
+            url=image.img.url,
             width=200,
             height=200,
             ))
@@ -31,9 +31,9 @@ class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
     raw_id_fields = ['post', ]
     fields = ['img', 'post', 'preview', ]
 
-    def preview(self, Image):
+    def preview(self, image):
         return format_html('<img src="{url}" width="{width}" height={height} />'.format(
-            url=Image.img.url,
+            url=image.img.url,
             width=200,
             height=200,
             ))
