@@ -11,7 +11,10 @@ class ImageStackedInline(SortableStackedInline):
     readonly_fields = ['preview', ]
 
     def preview(self, image):
-        return format_html('<img src="{}" width="{}" height={} />', image.img.url, 200, 200,)
+        image_url = image.img.url
+        height = 200
+
+        return format_html('<img src="{}" height={} />', image_url, height)
 
 
 @admin.register(Place)
@@ -28,4 +31,7 @@ class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
     fields = ['img', 'post', 'preview', ]
 
     def preview(self, image):
-        return format_html('<img src="{}" width="{}" height={} />', image.img.url, 200, 200,)
+        image_url = image.img.url
+        height = 200
+
+        return format_html('<img src="{}" height={} />', image_url, height)
