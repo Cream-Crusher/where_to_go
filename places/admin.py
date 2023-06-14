@@ -5,16 +5,20 @@ from adminsortable2.admin import SortableAdminMixin, SortableStackedInline, Sort
 from places.models import Place, Image
 
 
+def preview(self, image):
+    image_url = image.img.url
+    height = 200
+
+    return format_html('<img src="{}" height={} />', image_url, height)
+
+
 class ImageStackedInline(SortableStackedInline):
     model = Image
     raw_id_fields = ['post', ]
     readonly_fields = ['preview', ]
 
     def preview(self, image):
-        image_url = image.img.url
-        height = 200
-
-        return format_html('<img src="{}" height={} />', image_url, height)
+        return preview(self, image)
 
 
 @admin.register(Place)
@@ -31,7 +35,4 @@ class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
     fields = ['img', 'post', 'preview', ]
 
     def preview(self, image):
-        image_url = image.img.url
-        height = 200
-
-        return format_html('<img src="{}" height={} />', image_url, height)
+        return preview(self, image)
