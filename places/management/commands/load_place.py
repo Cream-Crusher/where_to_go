@@ -20,7 +20,6 @@ class Command(BaseCommand):
             response_place = requests.get(options['poll_ids'])
             raw_place = response_place.json()
             place_coordinates = raw_place['coordinates']
-
             place, created = Place.objects.get_or_create(
                 title=raw_place['title'],
                 description_short=raw_place['description_short'],
@@ -45,3 +44,9 @@ class Command(BaseCommand):
 
         except requests.exceptions.MissingSchema:
             logger.info('load_place не получил обязательный параметр')
+
+        except requests.exceptions.JSONDecodeError:
+            logger.info('Данной ссылки не существует.')
+
+        except Exception as err:
+            logger.warning(err)
