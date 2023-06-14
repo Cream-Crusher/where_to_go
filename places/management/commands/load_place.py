@@ -25,14 +25,16 @@ class Command(BaseCommand):
                 title=raw_place['title'],
                 description_short=raw_place['description_short'],
                 description_long=raw_place['description_long'],
-                low=place_coordinates['lng'],
-                lat=place_coordinates['lat'],
+                defaults={
+                    'low': place_coordinates['lng'],
+                    'lat': place_coordinates['lat'],
+                }
             )
 
-            if not created:
+            if created:
 
                 for image in raw_place['imgs']:
-                    image, created = Image.objects.get_or_create(
+                    image, created = Image.objects.update_or_create(
                         post=place,
                         img=image
                     )
