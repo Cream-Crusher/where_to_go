@@ -21,7 +21,8 @@ class Command(BaseCommand):
             response_status = response_place.raise_for_status
             raw_place = response_place.json()
             place_coordinates = raw_place['coordinates']
-            place, created = Place.objects.get_or_create(
+
+            place, created = Place.objects.get_or_create(  # TODO заменить none, на пустой списко []
                 title=raw_place['title'],
                 lon=place_coordinates['lng'],
                 lat=place_coordinates['lat'],
@@ -35,7 +36,7 @@ class Command(BaseCommand):
                 return
 
             for image in raw_place['imgs']:
-                image, created = Image.objects.get_or_create(
+                image, created = Image.objects.get_or_create(  # TODO заменить на create
                     post=place,
                     img=image
                 )

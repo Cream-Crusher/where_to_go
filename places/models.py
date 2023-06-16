@@ -11,7 +11,7 @@ class Place(models.Model):
 
     def __str__(self):
 
-        return '%s Id места: %s' % (self.title, self.id)
+        return f'{self.title} Id места: {self.id}'
 
 
 class Image(models.Model):
