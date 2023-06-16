@@ -31,17 +31,18 @@ class Command(BaseCommand):
                 }
             )
 
-            if created:
+            if not created:
+                return
 
-                for image in raw_place['imgs']:
-                    image, created = Image.objects.update_or_create(
-                        post=place,
-                        img=image
-                    )
-                    img_link = ContentFile(requests.get(image).content)
-                    img_name = str(image).split('/')[-1]
+            for image in raw_place['imgs']:
+                image, created = Image.objects.update_or_create(
+                    post=place,
+                    img=image
+                )
+                img_link = ContentFile(requests.get(image).content)
+                img_name = str(image).split('/')[-1]
 
-                    image.img.save(img_name, img_link, save=True)
+                image.img.save(img_name, img_link, save=True)
 
         except requests.exceptions.MissingSchema:
             logger.info('load_place не получил обязательный параметр.', response_status)
