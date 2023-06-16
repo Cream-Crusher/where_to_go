@@ -35,7 +35,7 @@ class Command(BaseCommand):
                 return
 
             for image in raw_place['imgs']:
-                image, created = Image.objects.update_or_create(
+                image, created = Image.objects.create(
                     post=place,
                     img=image
                 )
