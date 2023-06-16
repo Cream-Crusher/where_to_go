@@ -35,10 +35,11 @@ class Command(BaseCommand):
                 return
 
             for image in raw_place['imgs']:
-                image, created = Image.objects.create(
+                image, created = Image.objects.get_or_create(
                     post=place,
                     img=image
                 )
+
                 img_link = ContentFile(requests.get(image).content)
                 img_name = str(image).split('/')[-1]
 
