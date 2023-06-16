@@ -10,7 +10,7 @@ def show_page(request):
 
     for place in places:
         processed_places.append({
-            'coordinates': [place.low, place.lat],
+            'coordinates': [place.lon, place.lat],
             'title': place.title,
             'placeId': place.id,
             'detailsUrl': reverse('place_detail', args=[place.id, ]),
@@ -30,7 +30,7 @@ def place_detail(request, tag_title):
             'description_short': place.description_short,
             'description_long': place.description_long,
             'coordinates': {
-                'lng':  place.low,
+                'lng':  place.lon,
                 'lat': place.lat
             }
         }, json_dumps_params={'indent': 4, 'ensure_ascii': False}

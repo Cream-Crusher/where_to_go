@@ -26,7 +26,7 @@ class Command(BaseCommand):
                 description_short=raw_place['description_short'],
                 description_long=raw_place['description_long'],
                 defaults={
-                    'low': place_coordinates['lng'],
+                    'lon': place_coordinates['lng'],
                     'lat': place_coordinates['lat'],
                 }
             )
