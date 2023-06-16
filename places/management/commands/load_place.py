@@ -23,11 +23,11 @@ class Command(BaseCommand):
             place_coordinates = raw_place['coordinates']
             place, created = Place.objects.get_or_create(
                 title=raw_place['title'],
-                description_short=raw_place['description_short'],
-                description_long=raw_place['description_long'],
+                lon=place_coordinates['lng'],
+                lat=place_coordinates['lat'],
                 defaults={
-                    'lon': place_coordinates['lng'],
-                    'lat': place_coordinates['lat'],
+                    'description_short': raw_place['description_short'],
+                    'description_long': raw_place['description_long'],
                 }
             )
 
