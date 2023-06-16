@@ -18,6 +18,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
             response_place = requests.get(options['poll_ids'])
+            response_status = response_place.raise_for_status
             raw_place = response_place.json()
             place_coordinates = raw_place['coordinates']
             place, created = Place.objects.get_or_create(
@@ -43,10 +44,10 @@ class Command(BaseCommand):
                     image.img.save(img_name, img_link, save=True)
 
         except requests.exceptions.MissingSchema:
-            logger.info('load_place не получил обязательный параметр')
+            logger.info('load_place не получил обязательный параметр.', response_status)
 
         except requests.exceptions.JSONDecodeError:
-            logger.info('Данной ссылки не существует.')
+            logger.info('Данной ссылки не существует:', response_status)
 
         except Exception as err:
-            logger.warning(err)
+            logger.warning(err, response_status)
