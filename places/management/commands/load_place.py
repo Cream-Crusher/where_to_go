@@ -36,15 +36,11 @@ class Command(BaseCommand):
                 return
 
             for image in raw_place['imgs']:
-                image, created = Image.objects.get_or_create(  # TODO заменить на create
-                    post=place,
-                    img=image
-                )
-
-                img_link = ContentFile(requests.get(image).content)
                 img_name = str(image).split('/')[-1]
-
-                image.img.save(img_name, img_link, save=True)
+                image = Image.objects.create(
+                    post=place,
+                    img=f'media/{img_name}'
+                )
 
         except requests.exceptions.MissingSchema:
             logger.info('load_place не получил обязательный параметр.', response_status)
