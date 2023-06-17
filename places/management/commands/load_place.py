@@ -22,7 +22,8 @@ class Command(BaseCommand):
             place_coordinates = raw_place['coordinates']
             description_short = raw_place['description_short']
             description_long = raw_place['description_long']
-            place, created = Place.objects.get_or_create(  # TODO заменить none, на пустой списко []
+
+            place, created = Place.objects.get_or_create(
                 title=raw_place['title'],
                 lon=place_coordinates['lng'],
                 lat=place_coordinates['lat'],
