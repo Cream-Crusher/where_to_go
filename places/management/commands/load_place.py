@@ -3,7 +3,6 @@ import logging
 
 from ...models import Place, Image
 from django.core.management.base import BaseCommand
-from django.core.files.base import ContentFile
 
 logger = logging.getLogger(__file__)
 logging.basicConfig(level=logging.INFO)
