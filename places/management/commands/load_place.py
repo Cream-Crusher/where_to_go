@@ -21,14 +21,15 @@ class Command(BaseCommand):
             response_status = response_place.raise_for_status
             raw_place = response_place.json()
             place_coordinates = raw_place['coordinates']
-
+            description_short = raw_place['description_short']
+            description_long = raw_place['description_long']
             place, created = Place.objects.get_or_create(  # TODO заменить none, на пустой списко []
                 title=raw_place['title'],
                 lon=place_coordinates['lng'],
                 lat=place_coordinates['lat'],
                 defaults={
-                    'description_short': raw_place['description_short'],
-                    'description_long': raw_place['description_long'],
+                    'description_short': f'{description_short}',
+                    'description_long': f'{description_long}',
                 }
             )
 
