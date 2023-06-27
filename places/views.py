@@ -13,13 +13,13 @@ def show_page(request):
             'coordinates': [place.lon, place.lat],
             'title': place.title,
             'placeId': place.id,
-            'detailsUrl': reverse('place_detail', args=[place.id, ]),
+            'detailsUrl': reverse('get_place_detail', args=[place.id, ]),
         })
 
     return render(request, 'index.html', context={'places': processed_places})
 
 
-def place_detail(request, tag_title):
+def get_place_detail(request, tag_title):
     place = get_object_or_404(Place, id=tag_title)
     urls = [url.img.url for url in place.images.all()]
 
