@@ -19,8 +19,8 @@ def show_page(request):
     return render(request, 'index.html', context={'places': processed_places})
 
 
-def get_place_detail(request, tag_title):
-    place = get_object_or_404(Place, id=tag_title)
+def get_place_detail(request, tag_id):
+    place = get_object_or_404(Place, id=tag_id)
     urls = [url.img.url for url in place.images.all()]
 
     return JsonResponse(

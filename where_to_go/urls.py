@@ -24,6 +24,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.show_page, name='home_page'),
-    path('places/<int:tag_title>', views.get_place_detail, name='get_place_detail'),
+    path('places/<int:tag_id>', views.get_place_detail, name='get_place_detail'),
     path('tinymce/', include('tinymce.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
