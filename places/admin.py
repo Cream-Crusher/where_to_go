@@ -9,7 +9,7 @@ def preview(image):
     image_url = image.img.url
     height = 200
 
-    return format_html(f'<img src="{image_url}" height={height} />')
+    return format_html('<img src="{}" height={} />', image_url, height)
 
 
 class ImageStackedInline(SortableStackedInline):
