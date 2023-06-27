@@ -33,16 +33,15 @@ class Command(BaseCommand):
             response_place = get_response(options['poll_ids'])
             raw_place = response_place.json()
             place_coordinates = raw_place['coordinates']
-            description_short = raw_place['description_short']
-            description_long = raw_place['description_long']
-
+            description_short = raw_place.get('description_short', '')
+            description_long = raw_place.get('description_long', '')
             place, created = Place.objects.get_or_create(
                 title=raw_place['title'],
                 lon=place_coordinates['lng'],
                 lat=place_coordinates['lat'],
                 defaults={
-                    'description_short': f'{description_short}',
-                    'description_long': f'{description_long}',
+                    'description_short': description_short,
+                    'description_long': description_long,
                 }
             )
 
