@@ -3,6 +3,7 @@ import logging
 
 from ...models import Place, Image
 from django.core.management.base import BaseCommand
+from django.core.files.base import ContentFile
 
 logger = logging.getLogger(__file__)
 logging.basicConfig(level=logging.INFO)
@@ -49,11 +50,13 @@ class Command(BaseCommand):
                 return
 
             for image in raw_place['imgs']:
+                img_link = ContentFile(requests.get(image).content)
                 img_name = str(image).split('/')[-1]
                 image = Image.objects.create(
                     post=place,
                     img=f'media/{img_name}'
                 )
+                image.img.save(img_name, img_link, save=True)
 
         except Exception as err:
             logger.warning(err)
