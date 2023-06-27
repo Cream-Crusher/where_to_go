@@ -8,6 +8,20 @@ logger = logging.getLogger(__file__)
 logging.basicConfig(level=logging.INFO)
 
 
+def get_response(url):
+    response = requests.get(url)
+    response.raise_for_status()
+    check_for_redirect(response)
+    return response
+
+
+def check_for_redirect(response):
+    history = response.history
+
+    if history:
+        raise requests.HTTPError(history)
+
+
 class Command(BaseCommand):
     help = 'Load location from json link'
 
@@ -16,8 +30,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            response_place = requests.get(options['poll_ids'])
-            response_status = response_place.raise_for_status
+            response_place = get_response(options['poll_ids'])
             raw_place = response_place.json()
             place_coordinates = raw_place['coordinates']
             description_short = raw_place['description_short']
@@ -43,11 +56,5 @@ class Command(BaseCommand):
                     img=f'media/{img_name}'
                 )
 
-        except requests.exceptions.MissingSchema:
-            logger.info('load_place не получил обязательный параметр.', response_status)
-
-        except requests.exceptions.JSONDecodeError:
-            logger.info('Данной ссылки не существует:', response_status)
-
         except Exception as err:
-            logger.warning(err, response_status)
+            logger.warning(err)
