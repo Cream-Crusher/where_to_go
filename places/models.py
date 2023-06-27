@@ -10,7 +10,6 @@ class Place(models.Model):
     lat = models.FloatField('Широта')
 
     def __str__(self):
-
         return f'{self.title} Id места: {self.id}'
 
 
@@ -21,11 +20,10 @@ class Image(models.Model):
         'Place',
         related_name='images',
         on_delete=models.CASCADE,
-        verbose_name='Картинка, к месту')
+        verbose_name='Картинка, к месту',
+        )
 
-    custom_order = models.IntegerField(
-        default=0,
-    )
+    custom_order = models.IntegerField(default=0,)
 
     class Meta:
         ordering = ['custom_order']
