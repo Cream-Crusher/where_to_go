@@ -52,7 +52,7 @@ class Command(BaseCommand):
             for image in raw_place['imgs']:
                 response = get_response(image)
                 img_link = ContentFile(response.content)
-                img_name = str(image).split('/')[-1]
+                img_name = raw_place['title']
                 image = Image.objects.create(
                     post=place,
                     img=f'media/{img_name}'
