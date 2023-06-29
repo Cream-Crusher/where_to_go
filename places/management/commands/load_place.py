@@ -12,11 +12,11 @@ logging.basicConfig(level=logging.INFO)
 def get_response(url):
     response = requests.get(url)
     response.raise_for_status()
-    check_for_redirect(response)
+    check_redirect(response)
     return response
 
 
-def check_for_redirect(response):
+def check_redirect(response):
     history = response.history
 
     if history:
@@ -50,7 +50,8 @@ class Command(BaseCommand):
                 return
 
             for image in raw_place['imgs']:
-                img_link = ContentFile(requests.get(image).content)
+                response = get_response(image)
+                img_link = ContentFile(response.content)
                 img_name = str(image).split('/')[-1]
                 image = Image.objects.create(
                     post=place,
