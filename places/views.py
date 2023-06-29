@@ -33,8 +33,9 @@ def get_place_detail(request, tag_id):
                 'lng':  place.lon,
                 'lat': place.lat
             }
-        }, json_dumps_params={
+        },
+        json_dumps_params={
             'indent': 4,
             'ensure_ascii': False
-            }
+        }
     )
