@@ -34,10 +34,11 @@ class Command(BaseCommand):
             response_place = get_response(options['poll_ids'])
             raw_place = response_place.json()
             place_coordinates = raw_place['coordinates']
+            img_name = raw_place['title']
             description_short = raw_place.get('description_short', '')
             description_long = raw_place.get('description_long', '')
             place, created = Place.objects.get_or_create(
-                title=raw_place['title'],
+                title=img_name,
                 lon=place_coordinates['lng'],
                 lat=place_coordinates['lat'],
                 defaults={
@@ -52,7 +53,6 @@ class Command(BaseCommand):
             for image in raw_place['imgs']:
                 response = get_response(image)
                 img_link = ContentFile(response.content)
-                img_name = raw_place['title']
                 image = Image.objects.create(
                     post=place,
                     img=f'media/{img_name}'
