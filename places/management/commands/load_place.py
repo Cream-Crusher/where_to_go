@@ -28,7 +28,6 @@ def get_created_place(raw_place):
     img_name = raw_place['title']
     description_short = raw_place.get('description_short', '')
     description_long = raw_place.get('description_long', '')
-
     return Place.objects.get_or_create(
         title=img_name,
         lon=place_coordinates['lng'],
