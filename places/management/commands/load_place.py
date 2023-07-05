@@ -41,23 +41,23 @@ def get_created_place(raw_place):
 
 def add_img_to_place(place, response):
     img_name = place.title
-    img_link = ContentFile(response.content)
+    img_file = ContentFile(response.content)
     image = Image.objects.create(
         post=place,
         img=f'media/{img_name}'
     )
-    image.img.save(img_name, img_link, save=True)
+    image.img.save(img_name, img_file, save=True)
 
 
 class Command(BaseCommand):
     help = 'Load location from json link'
 
     def add_arguments(self, parser):
-        parser.add_argument('poll_ids', nargs='?', type=str)
+        parser.add_argument('link_json_file', nargs='?', type=str)
 
     def handle(self, *args, **options):
         try:
-            response_place = get_response(options['poll_ids'])
+            response_place = get_response(options['link_json_file'])
             raw_place = response_place.json()
             place, created = get_created_place(raw_place)
 
