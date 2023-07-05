@@ -41,12 +41,11 @@ def get_created_place(raw_place):
 
 def add_img_to_place(place, response):
     img_name = place.title
-    img_content = ContentFile(response.content)
-    image = Image.objects.create(
+    img_content = ContentFile(response.content, img_name)
+    Image.objects.create(
         post=place,
-        img=f'media/{img_name}'
+        img=img_content
     )
-    image.img.save(img_name, img_content, save=True)
 
 
 class Command(BaseCommand):
