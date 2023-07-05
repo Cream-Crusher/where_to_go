@@ -12,15 +12,11 @@ logging.basicConfig(level=logging.INFO)
 def get_response(url):
     response = requests.get(url)
     response.raise_for_status()
-    check_redirect(response)
-    return response
-
-
-def check_redirect(response):
     history = response.history
 
     if history:
         raise requests.HTTPError(history)
+    return response
 
 
 def get_created_place(raw_place):
