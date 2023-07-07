@@ -9,16 +9,6 @@ logger = logging.getLogger(__file__)
 logging.basicConfig(level=logging.INFO)
 
 
-def get_response(url):
-    response = requests.get(url)
-    response.raise_for_status()
-    history = response.history
-
-    if history:
-        raise requests.HTTPError(history)
-    return response
-
-
 def get_created_place(raw_place):
     place_coordinates = raw_place['coordinates']
     img_name = raw_place['title']
@@ -52,7 +42,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            response_place = get_response(options['link_json_file'])
+            response_place = requests.get(options['link_json_file'])
             raw_place = response_place.json()
             place, created = get_created_place(raw_place)
 
@@ -60,7 +50,7 @@ class Command(BaseCommand):
                 return
 
             for image in raw_place['imgs']:
-                response = get_response(image)
+                response = requests.get(image)
                 add_img_to_place(place, response)
 
         except Exception as err:
